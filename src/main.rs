@@ -14,11 +14,7 @@ fn main() {
     println!("In file {}", config.filename);
 
 
-    let contents = fs::read_to_string(config.filename)
-        .expect("Something went wrong readiing the file");
-
-    println!("With text:\n{}", contents);
-
+    run(config);
 }
 
 
@@ -41,4 +37,11 @@ impl Config {
 
 fn parse_config(args: &[String]) -> Result<Config, &'static str> {
     return Config::new(args);    
+}
+
+fn run(config: Config) {
+    let contents = fs::read_to_string(config.filename)
+        .expect("Something went wrong reading the file");
+
+    println!("With text:\n{}", contents);
 }
