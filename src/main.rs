@@ -4,8 +4,7 @@ use std::fs;
 fn main() {
     let args: Vec<String> = env::args().collect();
 
-    let query = &args[1];
-    let filename = &args[2];
+    let (query, filename) = parse_config(&args);
 
     println!("seatching for {}", query);
     println!("In file {}", filename);
@@ -16,4 +15,11 @@ fn main() {
 
     println!("With text:\n{}", contents);
 
+}
+
+fn parse_config(args: &[String]) -> (&str, &str) {
+    let query = &args[1];
+    let filename = &args[2];
+
+    (query, filename)
 }
