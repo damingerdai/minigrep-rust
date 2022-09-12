@@ -1,4 +1,5 @@
 use std::env;
+use std::error::Error;
 use std::fs;
 use std::process;
 
@@ -39,9 +40,11 @@ fn parse_config(args: &[String]) -> Result<Config, &'static str> {
     return Config::new(args);    
 }
 
-fn run(config: Config) {
+fn run(config: Config) -> Result<(), Box<dyn Error>>{
     let contents = fs::read_to_string(config.filename)
         .expect("Something went wrong reading the file");
 
     println!("With text:\n{}", contents);
+
+    Ok(())
 }
