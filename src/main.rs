@@ -10,12 +10,12 @@ fn main() {
         process::exit(1);
     });
 
-    println!("seatching for {}", config.query);
-    println!("In file {}", config.filename);
+    eprintln!("seatching for {}", config.query);
+    eprintln!("In file {}", config.filename);
 
 
     if let Err(e) = minigrep::run(config) {
-        println!("Application error: {}", e);
+        eprintln!("Application error: {}", e);
 
         process::exit(1);
     }
