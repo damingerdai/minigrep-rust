@@ -56,11 +56,19 @@ pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
    contents.lines().filter(|line| line.contains(query)).collect() 
 }
 
+fn string_to_static_str(s: String) -> &'static str {
+    Box::leak(s.into_boxed_str())
+}
+
 pub fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
     let query = query.to_lowercase();
 
     contents.lines()
-        .filter(|line| line.to_lowercase().contains(&query))
+        .map(|line| line.to_lowercase())
+        .filter(|line| line.contains(&query))
+        .map(|line| {
+           string_to_static_str(line)
+        })
         .collect()
 }
 
